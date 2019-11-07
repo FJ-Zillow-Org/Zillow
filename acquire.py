@@ -22,7 +22,7 @@ def get_db_url(db, user= env.user, host=env.host, password=env.password):
 def get_zillow_data():
     query = '''
     select 
-    svi.`COUNTY` county,
+    #svi.`COUNTY` county,
     p.`taxamount`/p.`taxvaluedollarcnt` tax_rate,
     # p.`id`,
     # p.`parcelid`,
@@ -45,7 +45,7 @@ def get_zillow_data():
     # p.`finishedsquarefeet15`,
     # p.`finishedsquarefeet50`,
     # p.`finishedsquarefeet6`,
-    # p.`fips`,
+    p.`fips`,
     # svi.`ST_ABBR` state,
     # p.`fireplacecnt`,
     # p.`fullbathcnt`,
@@ -115,8 +115,8 @@ def get_zillow_data():
     left join `propertylandusetype` plut
         on p.`propertylandusetypeid` = plut.`propertylandusetypeid`
             
-    left join svi_db.svi2016_us_county svi
-        on p.`fips` = svi.`FIPS`
+    # left join svi_db.svi2016_us_county svi
+    #     on p.`fips` = svi.`FIPS`
     left join `airconditioningtype` act
         using(`airconditioningtypeid`)
     left join heatingorsystemtype hst
