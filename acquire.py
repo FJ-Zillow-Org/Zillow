@@ -93,7 +93,7 @@ def get_zillow_data():
     # p.`censustractandblock`,
     # pred.`transactiondate`,
     pred.`logerror`,
-    m.`transactions`
+    # m.`transactions`
     from 
 	`properties_2017` p
     inner join `predictions_2017`  pred
