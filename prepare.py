@@ -37,11 +37,11 @@ def numeric_to_category(df, cols):
     return df
 
 # Write a function that accepts the zillow data frame and removes the outliers. 
-def remove_outliers_iqr(df, columns):
+def remove_outliers_iqr(df, columns, k):
     for col in columns:
         q75, q25 = np.percentile(df[col], [75,25])
-        ub = 3*stats.iqr(df[col]) + q75
-        lb = q25 - 3*stats.iqr(df[col])
+        ub = k*stats.iqr(df[col]) + q75
+        lb = q25 - k*stats.iqr(df[col])
         df = df[df[col] <= ub]
         df = df[df[col] >= lb]
     return df
