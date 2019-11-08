@@ -2,6 +2,8 @@
 import pandas as pd
 import scipy.stats as stats
 import numpy as np
+from sklearn.preprocessing import LabelEncoder, OneHotEncoder, MinMaxScaler
+
 
 def remove_columns(df, cols_to_remove):
     df = df.drop(columns=cols_to_remove)
@@ -25,6 +27,10 @@ def fill_zero(df, cols):
     df.fillna(value=0, inplace=True)
     return df
 
+def fill_mean(df, cols):
+    df.fillna(value=f'df.{cols}.mean()', inplace=True)
+    return df
+
 
 def data_prep(df, cols_to_remove=[], prop_required_column=.5, prop_required_row=.75):
     df = remove_columns(df, cols_to_remove)
@@ -45,3 +51,27 @@ def remove_outliers_iqr(df, columns, k):
         df = df[df[col] <= ub]
         df = df[df[col] >= lb]
     return df
+
+
+def encode(df, col_name):
+    
+    encoded_values = sorted(list(df[col_name].unique()))
+
+    # Integer Encoding
+    int_encoder = LabelEncoder()
+    df.encoded = int_encoder.fit_transform(df[col_name])
+
+    # create 2D np arrays of the encoded variable (in train and test)
+    df_array = np.array(df.encoded).reshape(len(df.encoded),1)
+
+    # One Hot Encoding
+    ohe = OneHotEncoder(sparse=False, categories='auto')
+    df_ohe = ohe.fit_transform(df_array)
+
+    # Turn the array of new values into a data frame with columns names being the values
+    # and index matching that of train/test
+    # then merge the new dataframe with the existing train/test dataframe
+    df_encoded = pd.DataFrame(data=df_ohe, columns=encoded_values, index=df.index)
+    df = df.join(df_encoded)
+
+    return df, ohe
