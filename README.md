@@ -6,11 +6,10 @@ This is our first partner project using an organization to coordinate on Github.
 ## Audience: Our Data Science Class
 - We will use our Jupyter Notebook to do a walkthrough of our process and findings.
 ## Goals:
-- Build a model that can predict the target variable of logerror.
-- Predict a continuous variable, logerror.
+- Build a model that can predict the target, continuous variable, of logerror.
 - Find any patterns that may be in the residuals.
 ## Requirements:
-- Use clustering in one or more stages of your process.
+- Use clustering in one or more stages of the process.
 - Discuss highlights or discoveries from the data, from the project, and from data science.
 - Creates .py modules that hold any functions you use throughout the project.
 ## Deliverables:
@@ -24,7 +23,5 @@ This is our first partner project using an organization to coordinate on Github.
     - acquire.py
     - prepare.py
     - summarize.py
-model.py
-- Add your env.py file
-- Run through telco_pipeline.ipynb
-- Random states are set as 123 in the notebook
+- Add your own env.py file
+- Run through deliverable.ipynb
