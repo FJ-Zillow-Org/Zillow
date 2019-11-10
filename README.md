@@ -11,7 +11,7 @@ This is our first partner project using an organization to coordinate on Github.
 ## Requirements:
 - Use clustering in one or more stages of the process.
 - Discuss highlights or discoveries from the data, from the project, and from data science.
-- Creates .py modules that hold any functions you use throughout the project.
+- Create .py modules that hold any functions you use throughout the project.
 ## Deliverables:
 - Jupyter Notebook
 - Supporting Modules with functions
@@ -107,4 +107,4 @@ This is our first partner project using an organization to coordinate on Github.
 
 - orange                          float64
 
-    - - binned column with 1 indicating a home in Orange county, 0 if not
+    - binned column with 1 indicating a home in Orange county, 0 if not
