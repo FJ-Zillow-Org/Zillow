@@ -53,25 +53,58 @@ def remove_outliers_iqr(df, columns, k):
     return df
 
 
-def encode(df, col_name):
+# def encode(df, col_name):
     
-    encoded_values = sorted(list(df[col_name].unique()))
+#     encoded_values = sorted(list(df[col_name].unique()))
+
+#     # Integer Encoding
+#     int_encoder = LabelEncoder()
+#     df.encoded = int_encoder.fit_transform(df[col_name])
+
+#     # create 2D np arrays of the encoded variable (in train and test)
+#     df_array = np.array(df.encoded).reshape(len(df.encoded),1)
+
+#     # One Hot Encoding
+#     ohe = OneHotEncoder(sparse=False, categories='auto')
+#     df_ohe = ohe.fit_transform(df_array)
+
+#     # Turn the array of new values into a data frame with columns names being the values
+#     # and index matching that of train/test
+#     # then merge the new dataframe with the existing train/test dataframe
+#     df_encoded = pd.DataFrame(data=df_ohe, columns=encoded_values, index=df.index)
+#     df = df.join(df_encoded)
+
+#     return df, ohe
+
+def encode(train, test, col_name):
+  
+    encoded_values = sorted(list(train[col_name].unique()))
+    columns = [col_name + '_' + str(val) for val in encoded_values]
 
     # Integer Encoding
     int_encoder = LabelEncoder()
-    df.encoded = int_encoder.fit_transform(df[col_name])
+    train.encoded = int_encoder.fit_transform(train[col_name])
+    test.encoded = int_encoder.transform(test[col_name])
 
     # create 2D np arrays of the encoded variable (in train and test)
-    df_array = np.array(df.encoded).reshape(len(df.encoded),1)
-
+    train_array = np.array(train.encoded).reshape(len(train.encoded),1)
+    test_array = np.array(test.encoded).reshape(len(test.encoded),1)
+    
     # One Hot Encoding
     ohe = OneHotEncoder(sparse=False, categories='auto')
-    df_ohe = ohe.fit_transform(df_array)
+    train_ohe = ohe.fit_transform(train_array)
+    test_ohe = ohe.transform(test_array)
 
     # Turn the array of new values into a data frame with columns names being the values
     # and index matching that of train/test
     # then merge the new dataframe with the existing train/test dataframe
-    df_encoded = pd.DataFrame(data=df_ohe, columns=encoded_values, index=df.index)
-    df = df.join(df_encoded)
+    train_encoded = pd.DataFrame(data=train_ohe,
+                            columns=columns, index=train.index)
+    train = train.join(train_encoded)
 
-    return df, ohe
+    test_encoded = pd.DataFrame(data=test_ohe,
+                               columns=columns, index=test.index)
+    test = test.join(test_encoded)
+
+    return train, test, ohe
+    
