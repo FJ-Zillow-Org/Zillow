@@ -26,7 +26,9 @@ This is our first partner project using an organization to coordinate on Github.
 - Add your own env.py file
 - Run through deliverable.ipynb
 
-## Data Dictionary
+## Data Dictionary 
+
+**Not all of these columns used in models below**
 
 - tax_rate                        float64
 
@@ -97,14 +99,14 @@ This is our first partner project using an organization to coordinate on Github.
 
     - calculated columns using landtaxvaluedollarcnt / lotsizesquarefeet
 
-- los_angeles                     float64
+- cluster_fips                    int64
 
-    - binned column with 1 indicating a home in Los Angeles county, 0 if not
+- cluster_sqft                    int64
+    
+    
+**train_cluster_sqft and test_cluster_sqft contain extra binary columns of type int with the following names:**
 
-- ventura                         float64
-
-    - binned column with 1 indicating a home in Ventura county, 0 if not
-
-- orange                          float64
-
-    - binned column with 1 indicating a home in Orange county, 0 if not
+    
+       'cluster_sqft_0', 'cluster_sqft_1', 'cluster_sqft_2',
+       'cluster_sqft_3', 'cluster_sqft_4', 'cluster_sqft_5', 'cluster_sqft_6',
+       'cluster_sqft_7', 'cluster_sqft_8', 'cluster_sqft_9']
